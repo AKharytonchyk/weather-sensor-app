@@ -1,6 +1,8 @@
 import * as React from "react";
-import { StyleSheet } from "react-native";
-import { Text, View } from "./Themed";
+import { StyleSheet, View } from "react-native";
+import { Text } from "./Themed";
+import { Icon } from "@iconify/react";
+import MeasurementInfo from "./MeasurementInfo";
 
 export default function WeatherScreenInfo({ ip }: { ip: string }) {
   const [readings, setReadings] = React.useState(initialState);
@@ -17,7 +19,7 @@ export default function WeatherScreenInfo({ ip }: { ip: string }) {
     return () => {
       clearInterval(interval);
     };
-  }, [ip]);
+  });
 
   return (
     <View>
@@ -28,9 +30,27 @@ export default function WeatherScreenInfo({ ip }: { ip: string }) {
       >
         Readings from {ip} sensor.
       </Text>
-      <Text>Temperature: {readings.temperature} ℃</Text>
-      <Text>Humidity: {readings.humidity}%</Text>
-      <Text>Pressure: {readings.pressure} kPa</Text>
+      <MeasurementInfo
+        icon="fluent:temperature-24-regular"
+        iconColor="#E9917E"
+        name="Temperature"
+        value={readings.temperature}
+        valueText="℃"
+      />
+      <MeasurementInfo
+        icon="carbon:humidity"
+        iconColor="#00C6CF"
+        name="Humidity"
+        value={readings.humidity}
+        valueText="%"
+      />
+      <MeasurementInfo
+        icon="fluent:top-speed-24-regular"
+        iconColor="#8685EF"
+        name="Pressure"
+        value={readings.pressure}
+        valueText="kPa"
+      />
     </View>
   );
 }
@@ -45,28 +65,5 @@ const styles = StyleSheet.create({
   headingText: {
     fontSize: 17,
     lineHeight: 24,
-    textAlign: "center",
-  },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightContainer: {
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  helpContainer: {
-    marginTop: 15,
-    marginHorizontal: 20,
-    alignItems: "center",
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    textAlign: "center",
   },
 });

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button, StyleSheet, TextInput, View } from "react-native";
-import { Text } from "./Themed";
+import { ScrollView, Text } from "./Themed";
 import WeatherScreenInfo from "./WeatherScreenInfo";
 
 const initialIpList: string[] = [];
@@ -12,19 +12,19 @@ export default function WeatherSensorGroup() {
   const onPress = () => {
     if (text?.length > 0 && !sensorIpList.some((sIp) => sIp === text))
       setSensorIp([...sensorIpList, text]);
+
+    onChangeText("");
   };
 
   return (
-    <View>
-      <View style={styles.container}>
-        {sensorIpList.length === 0 ? (
-          <Text style={styles.title}>Please enter sensor IP.</Text>
-        ) : (
-          sensorIpList.map((ip, index) => (
-            <WeatherScreenInfo key={`ip-${index}`} ip={ip} />
-          ))
-        )}
-      </View>
+    <ScrollView style={styles.container}>
+      {sensorIpList.length === 0 ? (
+        <Text style={styles.title}>Please enter sensor IP.</Text>
+      ) : (
+        sensorIpList.map((ip, index) => (
+          <WeatherScreenInfo key={`ip-${index}`} ip={ip} />
+        ))
+      )}
       <TextInput
         style={styles.input}
         onChangeText={onChangeText}
@@ -33,24 +33,27 @@ export default function WeatherSensorGroup() {
       <Button onPress={onPress} title="Add">
         Add
       </Button>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
   title: {
     fontSize: 20,
     fontWeight: "bold",
+    textAlign: "left",
   },
   input: {
     height: 40,
-    margin: 12,
+    marginVertical: 12,
     borderWidth: 1,
     padding: 10,
     backgroundColor: "#fff",
+  },
+  container: {
+    display: "flex",
+    minWidth: "80%",
+    paddingHorizontal: 16,
+    flex: 0,
   },
 });

@@ -1,9 +1,7 @@
 import * as React from "react";
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
-import WeatherScreenInfo from "../components/WeatherScreenInfo";
+import { Text, View, ScrollView } from "../components/Themed";
 import WeatherSensorGroup from "../components/WeatherSensorGroup";
 import { RootTabScreenProps } from "../types";
 
@@ -30,6 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
+    marginTop: 20,
     fontSize: 20,
     fontWeight: "bold",
   },
